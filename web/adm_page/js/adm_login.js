@@ -6,21 +6,20 @@ $(document).ready(function () {
             $(".login_msg").html("请输入你的密码")
         } else {
             $.ajax({
-                url: "",
+                url: "http://172.20.151.112:8066/Music_forum/enterservlet",
                 data: {
-                    "username": $("#username").val(),
+                    "userid": $("#username").val(),
                     "password": $("#password").val()
                 },
                 type: "get",
-                success: function (data) {
-                    
-                    $.cookie("user",$("#username").val(),{expirers:7,path:'/'})
-                    window.document.f.action = "./administrator.html";
-                    window.document.f.submit();
+                success: function (str) {
+                    var data=eval('('+str+')');
                     if (data.pass == true) {
                         alert("登入成功");
-                        window.document.f.action = "./administrator.html";
-                        window.document.f.submit();
+                        $.cookie("user",data.userid,{expirers:7,path:'/'})
+                        $.cookie("image",data.url,{expirers:7,path:'/'})
+                        //页面跳转
+                        window.location.href = "./administrator.html"
                     } else {
                         $(".login_msg").html("账户名或密码有问题，请检查")
                     }
