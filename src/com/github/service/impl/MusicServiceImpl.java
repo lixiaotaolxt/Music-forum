@@ -26,7 +26,18 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
+    public Boolean notpass(String url, String verifier) {
+        Boolean notpass = musicDao.notpass(url, verifier);
+        return notpass;
+    }
+
+    @Override
     public List<music> getAllPassMusics() {
         return musicDao.getAllPassMusics();
+    }
+
+    @Override
+    public String getRankingList(String wherefrom) {
+        return musicDao.getRankingList(wherefrom);
     }
 }

@@ -2,6 +2,8 @@ package com.github.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dao.TextDao;
 import com.github.dao.impl.TextDaoImpl;
 import com.github.domain.*;
@@ -62,7 +64,7 @@ public class TextServiceImplTest {
     @Test
     public void findAlltext() {
         TextService textService = new TextServiceImpl();
-        text2 alltext = textService.findAlltext(1);
+        text2 alltext = textService.findAlltext(33);
         String s = JSON.toJSONString(alltext);
         System.out.println(s);
     }
@@ -79,18 +81,13 @@ public class TextServiceImplTest {
     }
 
     @Test
-    public void getsimpleTextByUserID() {
+    public void getsimpleTextByUserID() throws JsonProcessingException {
 
         List<simpletext> simpletexts = textService.getsimpleTextByUserID("1455075085@qq.com");
-        String s1 = JSON.toJSONString(simpletexts);
-        System.out.println(s1);
-//        if (simpletexts != null){
-//            for (simpletext s :simpletexts) {
-//                System.out.println(s.toString());
-//            }
-//        }else {
-//            System.out.println("null");
-//        }
+        System.out.println(simpletexts.size());
+        String s = JSON.toJSONString(simpletexts);
+        System.out.println(s);
+
     }
 
     @Test
@@ -101,4 +98,38 @@ public class TextServiceImplTest {
     }
 
 
+    @Test
+    public void updateLikes() {
+        textService.updateLikes(1, 13);
+    }
+
+    @Test
+    public void cancelCollection() {
+        collection collection = new collection();
+        collection.setUserid("1455075085@qq.com");
+        collection.setCollectiontextid(15);
+        Boolean aBoolean = textService.cancelCollection(collection);
+        System.out.println(aBoolean);
+    }
+
+    @Test
+    public void getAllsimpleartcle() {
+        List<simpletext_article> allsimpleartcle = textService.getAllsimpleartcle();
+        String s = JSON.toJSONString(allsimpleartcle);
+        System.out.println(s);
+    }
+
+    @Test
+    public void getTopArticle() {
+        List<simpletext_article> topArticle = textService.getTopArticle();
+        String s = JSON.toJSONString(topArticle);
+        System.out.println(s);
+    }
+
+    @Test
+    public void searchArticleByKeyWorks() {
+        List<simpletext_article> simpletext_articles = textService.searchArticleByKeyWorks("大");
+        String s = JSON.toJSONString(simpletext_articles);
+        System.out.println(s);
+    }
 }

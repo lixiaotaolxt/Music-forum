@@ -26,8 +26,23 @@ public interface MusicDao {
     Boolean pass(String url, String verifier);
 
     /**
+     * 此方法用来使音乐不通过审核
+     * @param url
+     * @param verifier
+     * @return
+     */
+    Boolean notpass(String url, String verifier);
+
+    /**
      * 此方法用来获取所有的已通过审核的音乐信息
      * @return 返回音乐实体类集合
      */
     List<music> getAllPassMusics();
+
+    /**
+     * 此方法用来获取排行榜
+     * @param wherefrom
+     * @return
+     */
+    String getRankingList(String wherefrom);
 }
